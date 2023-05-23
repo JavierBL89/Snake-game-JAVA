@@ -67,8 +67,21 @@ public class GamePanel extends JPanel implements ActionListener{
              g.drawLine(i*UNIT_SIZE, 0, i*UNIT_SIZE, SCREEN_HEIGHT);
              g.drawLine(0, i*UNIT_SIZE, SCREEN_HEIGHT, i*UNIT_SIZE);
         }
+        // draws apples on panel
         g.setColor(Color.red);
         g.fillOval(appleX, appleY, UNIT_SIZE, UNIT_SIZE);
+
+        //draws snake on panle
+        // loop through the bodyparts of the snake
+        for(int i = 0; i<bodyParts;i++){
+            if(i == 0){
+                g.setColor(Color.green);
+                g.fillRect(x[i], y[i], UNIT_SIZE, UNIT_SIZE);
+            }else{
+                g.setColor(new Color(45,18,0));
+                g.fillRect(x[i], y[i], UNIT_SIZE, UNIT_SIZE);
+            }
+        }
     }
 
     /**
@@ -111,6 +124,7 @@ public class GamePanel extends JPanel implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         // TODO Auto-generated method stub
+    
         throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
     }
 
