@@ -11,7 +11,7 @@ public class GamePanel extends JPanel implements ActionListener{
     // ech item is going to have a dimension of 25px(for wight & height)
     static final int UNIT_SIZE = 25;
     static final int GAME_UNITS = (SCREEN_WIDTH*SCREEN_HEIGHT)/UNIT_SIZE;
-    static final int DELAY = 75;
+    static final int DELAY = 100;
     final int x[] = new int[GAME_UNITS];
     final int y[] = new int[GAME_UNITS];
     int bodyParts = 6;
@@ -78,7 +78,7 @@ public class GamePanel extends JPanel implements ActionListener{
                 g.setColor(Color.green);
                 g.fillRect(x[i], y[i], UNIT_SIZE, UNIT_SIZE);
             }else{
-                g.setColor(new Color(45,18,0));
+                g.setColor(new Color(85,18,10));
                 g.fillRect(x[i], y[i], UNIT_SIZE, UNIT_SIZE);
             }
         }
@@ -92,7 +92,7 @@ public class GamePanel extends JPanel implements ActionListener{
           x[i] = x[i -1];
           y[i] = y[i -1];
        }
-       switch(direction){
+       switch(direction) {
         case 'U':
             y[0] = y[0] - UNIT_SIZE;
             break;
@@ -105,7 +105,6 @@ public class GamePanel extends JPanel implements ActionListener{
         case 'R':
             x[0] = x[0] + UNIT_SIZE;
             break;
-       
        }
     }
 
@@ -123,9 +122,14 @@ public class GamePanel extends JPanel implements ActionListener{
     
     @Override
     public void actionPerformed(ActionEvent e) {
-        // TODO Auto-generated method stub
-    
-        throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
+        if(running){
+            move();
+           // newApple();
+            checkCrash();
+
+        }
+        //if the game is not longer running we call repaint()
+        repaint();
     }
 
     public class MyKeyAdapter extends KeyAdapter {
