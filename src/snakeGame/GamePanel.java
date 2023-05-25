@@ -112,8 +112,36 @@ public class GamePanel extends JPanel implements ActionListener{
 
     }
 
+    /**
+     * Check if snake collides
+     * **/
     public void checkCrash(){
-
+        //check if snake head chrases with body
+        for(int i = bodyParts; i>0; i--){
+            if(x[0] == x[i] && y[0] == y[0]){
+                running = false;
+            }
+            // check if head touches left wall
+            if(x[0] < 0){
+                running = false;
+            }
+            // check if head touches right wall
+            if(x[0] > SCREEN_WIDTH){
+                running = false;
+            }
+             // check if head touches top wall
+             if(y[0] < 0){
+                running = false;
+            }
+            // check if head touches lower wall
+            if(y[0] > SCREEN_HEIGHT){
+                running = false;
+            }
+            if(!running){
+                timer.stop();
+            }
+          
+        }
     }
 
     public void gameOver(Graphics g){
