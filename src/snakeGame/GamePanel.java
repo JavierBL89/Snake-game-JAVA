@@ -58,28 +58,32 @@ public class GamePanel extends JPanel implements ActionListener{
      * This method takes care of drawing everything on the panel
      */
     public void draw(Graphics g){
-      // THIS DRAWS A GRID IN AOUR PANEL
-        for(int i=0; i<SCREEN_HEIGHT/UNIT_SIZE;i++){
-           //  drawLine(int x1, int y1,       int x2, int y2)
+        if(running){
+            // THIS DRAWS A GRID IN AOUR PANEL
+            for(int i=0; i<SCREEN_HEIGHT/UNIT_SIZE;i++){
+               //  drawLine(int x1, int y1,       int x2, int y2)
                     //STARTING COORDANATES //ENDING COORDINATES
-             g.drawLine(i*UNIT_SIZE, 0, i*UNIT_SIZE, SCREEN_HEIGHT);
-             g.drawLine(0, i*UNIT_SIZE, SCREEN_HEIGHT, i*UNIT_SIZE);
-        }
-        // draws apples on panel
-        g.setColor(Color.red);
-        g.fillOval(appleX, appleY, UNIT_SIZE, UNIT_SIZE);
-
-        //draws snake on panle
-        // loop through the bodyparts of the snake
-        for(int i = 0; i<bodyParts;i++){
-            if(i == 0){
-                g.setColor(Color.green);
-                g.fillRect(x[i], y[i], UNIT_SIZE, UNIT_SIZE);
-            }else{
-                g.setColor(new Color(85,18,10));
-                g.fillRect(x[i], y[i], UNIT_SIZE, UNIT_SIZE);
+                 g.drawLine(i*UNIT_SIZE, 0, i*UNIT_SIZE, SCREEN_HEIGHT);
+                 g.drawLine(0, i*UNIT_SIZE, SCREEN_HEIGHT, i*UNIT_SIZE);
             }
-        }
+            // draws apples on panel
+            g.setColor(Color.red);
+            g.fillOval(appleX, appleY, UNIT_SIZE, UNIT_SIZE);
+
+            //draws snake on panle
+            // loop through the bodyparts of the snake
+            for(int i = 0; i<bodyParts;i++){
+                if(i == 0){
+                    g.setColor(Color.green);
+                    g.fillRect(x[i], y[i], UNIT_SIZE, UNIT_SIZE);
+                }else{
+                    g.setColor(new Color(85,18,10));
+                    g.fillRect(x[i], y[i], UNIT_SIZE, UNIT_SIZE);
+                }
+            }
+        }else{
+          gameOver(g);
+       }
     }
 
     /**
@@ -105,16 +109,16 @@ public class GamePanel extends JPanel implements ActionListener{
             break;
        }
     }
-
+    
+    /***
+     * Increase snake size for every apple eaten
+     */
     public void feedSnake(){
-  //  for(int i = bodyParts; i<0;i++){
-
         if((x[0] == appleX) && (y[0] == appleY)){
             bodyParts++;
             applesEaten++;
             newApple();
         }
-   // }
     }
 
     /**
@@ -148,9 +152,16 @@ public class GamePanel extends JPanel implements ActionListener{
           
         }
     }
-
+    /**
+     * Game ends, and provides a nice game over screen
+     * * */
     public void gameOver(Graphics g){
-
+        // Game over text
+        g.setColor(Color.red);
+        g.setFont(new Font("Ink free ", Font.BOLD, 75));
+        FontMetrics metrics = getFontMetrics(g.getFont());
+        g.drawString("Game over", (SCREEN_WIDTH - metrics.stringWidth("Game Over")) /2,
+         SCREEN_HEIGHT/2);
     }
     
     @Override
