@@ -3,6 +3,7 @@ import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
 import java.util.Random;
+import snakeGame.GameFrame.*;
 
 public class GamePanel extends JPanel implements ActionListener{
     
@@ -24,12 +25,13 @@ public class GamePanel extends JPanel implements ActionListener{
     Random random;
 
     GamePanel (){
-        random = new Random();
+       random = new Random();
        this.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
        this.setBackground(Color.black);
        this.setFocusable(true);
        this.addKeyListener(new MyKeyAdapter());
-        startGame();
+       startGame();
+
     }
 
 
@@ -83,6 +85,8 @@ public class GamePanel extends JPanel implements ActionListener{
             }
         }else{
           gameOver(g);
+          restartGame(g);
+        //  restartGame(g);
        }
     }
 
@@ -162,6 +166,16 @@ public class GamePanel extends JPanel implements ActionListener{
         FontMetrics metrics = getFontMetrics(g.getFont());
         g.drawString("Game over", (SCREEN_WIDTH - metrics.stringWidth("Game Over")) /2,
          SCREEN_HEIGHT/2);
+         // get the button object from GameFrame and make it visible
+         JButton restartButton = GameFrame.button1;
+         restartButton.setVisible(true);
+    }
+
+    /**
+     * Restart the game
+     */
+    public void restartGame(Graphics g){
+        
     }
     
     @Override
