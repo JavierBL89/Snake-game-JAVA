@@ -1,6 +1,7 @@
 package snakeGame;
 import java.awt.*;
 import javax.swing.*;
+import javax.swing.Timer;
 import java.awt.event.*;
 import java.util.Random;
 import snakeGame.GameFrame.*;
@@ -85,7 +86,6 @@ public class GamePanel extends JPanel implements ActionListener{
             }
         }else{
           gameOver(g);
-          restartGame(g);
         //  restartGame(g);
        }
     }
@@ -160,21 +160,34 @@ public class GamePanel extends JPanel implements ActionListener{
      * Game ends, and provides a nice game over screen
      * * */
     public void gameOver(Graphics g){
-        // Game over text
-        g.setColor(Color.red);
-        g.setFont(new Font("Ink free ", Font.BOLD, 75));
-        FontMetrics metrics = getFontMetrics(g.getFont());
-        g.drawString("Game over", (SCREEN_WIDTH - metrics.stringWidth("Game Over")) /2,
-         SCREEN_HEIGHT/2);
-         // get the button object from GameFrame and make it visible
-         JButton restartButton = GameFrame.button1;
-         restartButton.setVisible(true);
+            // Game over text
+
+            Graphics gameOverText = g.create();
+            Graphics score = g.create();
+
+            Graphics restartText = g.create();
+            // Game Over text settings
+            gameOverText.setColor(Color.red);
+            gameOverText.setFont(new Font("Ink free ", Font.BOLD, 75));
+            FontMetrics gameOverMetrics = getFontMetrics(gameOverText.getFont());
+            gameOverText.drawString("Game over", (SCREEN_WIDTH - gameOverMetrics.stringWidth("Game Over")) /2,
+            SCREEN_HEIGHT/2);
+            // Restart game text settings
+            restartText.setColor(Color.white);
+            restartText.setFont(new Font("Ink free ", Font.PLAIN, 15));
+            FontMetrics restartTextMetrics = getFontMetrics(restartText.getFont());
+            restartText.drawString("Press enter to RESTART game", (SCREEN_WIDTH - restartTextMetrics.stringWidth("Press enter to RESTART game")) /2,
+            SCREEN_HEIGHT/2 + 50);
+            // Soring settings
+            score.setColor(Color.red);
+            score.setFont(new Font("Ink free", Font.ITALIC, 40));
+            score.drawString("Score: "+ applesEaten, (SCREEN_WIDTH / 2 - 80), SCREEN_HEIGHT/7 - 0);;
     }
 
     /**
      * Restart the game
      */
-    public void restartGame(Graphics g){
+    public void restartGame(){
         
     }
     
@@ -185,6 +198,7 @@ public class GamePanel extends JPanel implements ActionListener{
             feedSnake();
             checkCrash();
         }
+        restartGame();
         //if the game is not longer running we call repaint()
         repaint();
     }
@@ -217,6 +231,8 @@ public class GamePanel extends JPanel implements ActionListener{
             
         }
     }
+
+    
 
 
 }
